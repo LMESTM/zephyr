@@ -602,6 +602,12 @@ int stm32_i2c_configure_timing(struct device *dev, uint32_t clock)
 	uint32_t presc = 1U;
 	uint32_t timing = 0U;
 
+    /* In case timing property is available, let's use it */
+    if(cfg->timing != 0) {
+        LL_I2C_SetTiming(i2c, cfg->timing);
+        return 0;
+    }
+
 	switch (I2C_SPEED_GET(data->dev_config)) {
 	case I2C_SPEED_STANDARD:
 		i2c_h_min_time = 4000U;

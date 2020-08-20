@@ -300,6 +300,11 @@ static const struct i2c_stm32_config i2c_stm32_cfg_##name = {		\
 	},								\
 	STM32_I2C_IRQ_HANDLER_FUNCTION(name)				\
 	.bitrate = DT_PROP(DT_NODELABEL(name), clock_frequency),	\
+	COND_CODE_1(CONFIG_I2C_STM32_V2,				\
+	(COND_CODE_1(DT_NODE_HAS_PROP(DT_NODELABEL(name), timing),	\
+	(.timing = DT_PROP(DT_NODELABEL(name), timing),),		\
+	(.timing = 0,))),						\
+	())										\
 };									\
 									\
 static struct i2c_stm32_data i2c_stm32_dev_data_##name;			\
