@@ -13,3 +13,8 @@ properties:
 
     interrupts:
       required: true
+
+    timing:
+        type: int
+        required: false
+        description: optional a pre-computed I2C_TIMINGR value to override runtime timing calculation
